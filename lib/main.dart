@@ -7,7 +7,6 @@ const requestBovespa =
     "https://api.hgbrasil.com/finance/stock_price?key=ab189558&symbol=";
 
 void main() async {
-  print(await getData("CORR4"));
 
   runApp(MaterialApp(
     home: Home(),
@@ -44,71 +43,79 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Color.fromRGBO(170, 177, 191, 100),
-        appBar: AppBar(
-          title: Text("Ações Bovespa"),
-          backgroundColor: Colors.white,
-          centerTitle: true,
-        ),
-        body: SingleChildScrollView(
-            child: Container(
-                margin: EdgeInsets.all(20),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(padding: EdgeInsets.all(20)),
-                      Image.asset(
-                        "images/Bovespa.png",
-                        fit: BoxFit.fitWidth,
-                      ),
-                      Padding(padding: EdgeInsets.all(20)),
-                      TextField(
-                        controller: symbolController,
-                        decoration: InputDecoration(
-                          labelText: "Símbolo",
-                          labelStyle: TextStyle(color: Colors.white),
-                          border: OutlineInputBorder(),
-                        ),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                        ),
-                        keyboardType: TextInputType.text,
-                      ),
-                      Padding(padding: EdgeInsets.all(10)),
-                      Container(
-                        margin: EdgeInsets.all(40),
-                        child: RaisedButton(
-                          child: Text("Pesquisar"),
-                          onPressed: () async {
-                            Map conteudo = await getData(symbolController.text);
-                            moeda = conteudo["results"]
-                                        [symbolController.text.toUpperCase()]
-                                    ["currency"]
-                                .toString();
-                            valorController.text = moeda +
-                                " " +
-                                conteudo["results"][symbolController.text
-                                        .toUpperCase()]["price"]
-                                    .toString();
-                          },
-                        ),
-                      ),
-                      Padding(padding: EdgeInsets.all(10)),
-                      TextField(
-                        readOnly: true,
-                        controller: valorController,
-                        decoration: InputDecoration(
-                          labelText: "Valor",
-                          labelStyle: TextStyle(color: Colors.white),
-                          border: OutlineInputBorder(),
-                        ),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                        ),
-                      )
-                    ]))));
+    return 
+    Scaffold(
+      backgroundColor: Color.fromRGBO(170, 177, 191, 100),
+      appBar: AppBar(
+        title: Text("Ações Bovespa"),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+      ),
+      body: 
+      SingleChildScrollView(
+        child: 
+        Container(
+          margin: EdgeInsets.all(20),
+          child: 
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(padding: EdgeInsets.all(20)),
+              Image.asset(
+                "images/Bovespa.png",
+                fit: BoxFit.fitWidth,
+              ),
+              Padding(padding: EdgeInsets.all(20)),
+              TextField(
+                controller: symbolController,
+                decoration: InputDecoration(
+                  labelText: "Símbolo",
+                  labelStyle: TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(),
+                ),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25,
+                ),
+                keyboardType: TextInputType.text,
+              ),
+              Padding(padding: EdgeInsets.all(10)),
+              Container(
+                margin: EdgeInsets.all(40),
+                child: RaisedButton(
+                  child: Text("Pesquisar"),
+                  onPressed: () async {
+                    Map conteudo = await getData(symbolController.text);
+                    moeda = conteudo["results"]
+                                [symbolController.text.toUpperCase()]
+                            ["currency"]
+                        .toString();
+                    valorController.text = moeda +
+                        " " +
+                        conteudo["results"][symbolController.text
+                                .toUpperCase()]["price"]
+                            .toString();
+                  },
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(10)),
+              TextField(
+                readOnly: true,
+                controller: valorController,
+                decoration: InputDecoration(
+                  labelText: "Valor",
+                  labelStyle: TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(),
+                ),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25,
+                ),
+              )
+            ]
+          )
+        )
+      )
+    );
   }
 }
